@@ -1,24 +1,24 @@
 
-public interface Lista {
+public interface Lista<T> {
 
-	void inserir(int valor);
+	void inserir(T valor);
 
 	String exibir();
 
-	int buscar(int valor);
+	int buscar(T valor);
 
-	void retirar(int valor);
+	void retirar(T valor);
 
 	boolean estaVazia();
 
 	int getTamanho();
 
-	void concatenar(Lista outra);
+	void concatenar(Lista<T> outra);
 
-	Lista dividir();
+	Lista<T> dividir();
 
-	Lista copiar();
+	Lista<T> copiar();
 
-	int pegar(int posicao);
+	T pegar(int posicao);
 
 }

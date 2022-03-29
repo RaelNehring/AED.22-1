@@ -1,15 +1,17 @@
 
-public class ListaEstatica implements Lista {
-	private int[] info;
+public class ListaEstatica<T> implements Lista<T> {
+	private T[] info;
 	private int tamanho;
 
+	@SuppressWarnings("unchecked")
 	public ListaEstatica() {
-		info = new int[10];
+		info = (T[]) new Object[10];
 		tamanho = 0;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void redimensionar() {
-		int[] novo = new int[tamanho + 10];
+		T[] novo = (T[]) new Object[tamanho + 10];
 		for (int i = 0; i < tamanho; i++) {
 			novo[i] = this.info[i];
 			tamanho++;
@@ -18,7 +20,7 @@ public class ListaEstatica implements Lista {
 	}
 
 	@Override
-	public void inserir(int valor) {
+	public void inserir(T valor) {
 		if (tamanho == info.length) {
 			this.redimensionar();
 		}
@@ -36,9 +38,9 @@ public class ListaEstatica implements Lista {
 	}
 
 	@Override
-	public int buscar(int valor) {
+	public int buscar(T valor) {
 		for (int i = 0; i < tamanho; i++) {
-			if (info[i] == valor) {
+			if (info[i].equals(valor)) {
 				return i;
 			}
 		}
@@ -46,9 +48,9 @@ public class ListaEstatica implements Lista {
 	}
 
 	@Override
-	public void retirar(int valor) {
+	public void retirar(T valor) {
 		for (int i = 0; i < tamanho; i++) {
-			if (info[i] == valor) {
+			if (info[i].equals(valor)) {
 				while (i < tamanho) {
 					info[i] = info[i + 1];
 					i++;
@@ -69,17 +71,15 @@ public class ListaEstatica implements Lista {
 	}
 
 	@Override
-	public void concatenar(Lista outra) {
-		// Extra
+	public void concatenar(Lista<T> outra) {
 		for (int i = 0; i < outra.getTamanho(); i++) {
 			this.inserir(outra.pegar(i));
 		}
 	}
 
 	@Override
-	public Lista dividir() {
-		// Extra
-		Lista novaLista = new ListaEstatica();
+	public Lista<T> dividir() {
+		Lista<T> novaLista = new ListaEstatica<>();
 		int meiaLista = this.tamanho / 2;
 
 		for (int i = meiaLista; i < this.tamanho; i++) {
@@ -91,9 +91,8 @@ public class ListaEstatica implements Lista {
 	}
 
 	@Override
-	public Lista copiar() {
-		// Extra
-		Lista novaLista = new ListaEstatica();
+	public Lista<T> copiar() {
+		Lista<T> novaLista = new ListaEstatica<>();
 
 		for (int i = 0; i < this.tamanho; i++) {
 			novaLista.inserir(info[i]);
@@ -103,8 +102,7 @@ public class ListaEstatica implements Lista {
 	}
 
 	@Override
-	public int pegar(int posicao) {
-		// TODO Auto-generated method stub
+	public T pegar(int posicao) {
 		return info[posicao];
 	}
 }
